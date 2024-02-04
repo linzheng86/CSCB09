@@ -59,7 +59,7 @@ parse the arguement and print the desired output
 
 ## Compile the program using 
 ```
-$ gcc mySystemStats.c -o mySystemStats -lm
+$ gcc mySystemStats.c -o mySystemStats
 ```
 ## Run the program
 ```
