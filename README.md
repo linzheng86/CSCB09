@@ -59,33 +59,33 @@ parse the arguement and print the desired output
 
 ## Compile the program using 
 ```
-$ gcc mySystemStats.c -o mySystemStats
+gcc mySystemStats.c -o mySystemStats
 ```
 ## Run the program
 ```
-$ ./mySystemStats
+./mySystemStats
 ```
 
 ### --system
 to indicate that only the system usage should be generated
 ```
-$ ./mySystemStats --system
+./mySystemStats --system
 ```
 
 ### --user
 to indicate that only the users usage should be generated
 ```
-$ ./mySystemStats --user
+./mySystemStats --user
 ```
 
 ### --graphic
  to include graphical output in the cases where a graphical outcome is possible as indicated below.
 ```
-$ ./mySystemStats --graphic
+./mySystemStats --graphic
 ```
 or
 ```
-$ ./mySystemStats -g
+./mySystemStats -g
 ```
 #### Graphical representations
 for Memory utilization:
@@ -107,25 +107,25 @@ for CPU utilization:
 to indicate that the information will be output sequentially without needing to "refresh" the screen 
 (useful if you would like to redirect the output into a file)
 ```
-$ ./mySystemStats --sequential
+./mySystemStats --sequential
 ```
 
 ### --samples=N
 if used the value N will indicate how many times the statistics are going to be collected and results will be average and reported based on the N number of repetitions.
 If not value is indicated the default value will be 10.
 ```
-$ ./mySytemStats --samples=N
+./mySytemStats --samples=N
 ```
 
 ### --tdelay=T
 to indicate how frequently to sample in seconds.
 If not value is indicated the default value will be 1 sec.
 ```
-$ ./mySystemStats --tdelays=T
+./mySystemStats --tdelays=T
 ```
 ### other way for setting samples and tdelay
 make sure the order is correct, the first number is samples and the second is tdelay
 ```
-$ ./mySystemStats 8 2
+./mySystemStats 8 2
 ```
 
