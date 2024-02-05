@@ -155,4 +155,16 @@ make sure the order is correct, the first number is samples and the second is td
 ```
 ./mySystemStats 8 2
 ```
+# Design Decison
+
+## sampling for CPUs match tdelay
+```
+collecting the cpu usage before the delay and after the delay
+comparing two values and calculate the cpu usage.
+```
+## sequential
+```
+printing the current memory and cpu usage one by one at the index of the iteration
+the other lines are blank
+```
 
