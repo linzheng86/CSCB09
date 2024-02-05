@@ -155,7 +155,7 @@ make sure the order is correct, the first number is samples and the second is td
 ```
 ./mySystemStats 8 2
 ```
-# Design Decison
+# **Design Decison**
 
 ## sampling for CPUs match tdelay
 ```
