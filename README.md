@@ -1,3 +1,5 @@
+# **System Monitoring Tool**
+
 # **How I Solve the Question**
 I first watched the video demo and compared the output in the demo and provided examples, then I read through
 the provided resource such as files and C-libraries to figure out the usage of each. Also, I searched up online to find
@@ -6,81 +8,151 @@ out more library and functions I can use. Therefore I started working on the pro
 
 # **Overview of functions**
 
+## generate_header
 ```
-generate_header(int samples, int tdelay, bool sequential, int curr_line)
+void generate_header(int samples, int tdelay, bool sequential, int curr_line)
 ```
 this function generate the header of the printed information according to the sequential, including the number of samples and the time of tdelay
 if sequential, the print the number of iteration based on curr_line
-#  
+
+Parameters
+- `samples (int)`: The total number of samples specified for the monitoring process.
+- `tdelay (int)`: The time delay (in seconds) between consecutive samples.
+- `sequential (bool)`: A boolean flag indicating whether samples should be displayed sequentially.
+- `curr_line (int)`: The current line or iteration number for which the header is generated.
+# 
+
+## generate_memory_usage
 ```
-generate_memory_usage()
+void generate_memory_usage()
 ```
 this function generate the information of the memory usage using <sys/resourse.h>
+
 #
+## calculate_memory_info
 ```
-calculate_memory_info(char memory_info[][1024], int curr_line)
+double calculate_memory_info(char memory_info[][1024], int curr_line)
 ```
 this function calculate the memory information, store the information in the array memory_info at the index curr_line
 and return virtue used memory for future use
+
+Parameters
+- `memory_info (char[][1024])`: An array of character arrays to store memory-related information.
+- `curr_line (int)`: The current line or iteration number for which memory information is being calculated and stored.
 #
+
+## generate_memory_graphic
 ```
-generate_memory_graphic(int curr_line, double *last_memory, double now_memory, char memory_info[][1024])
+void generate_memory_graphic(int curr_line, double *last_memory, double now_memory, char memory_info[][1024])
 ```
 this function generate the memory graph, based on the memory before delay and after the delay
 and store the information in the memory_info based on the index curr_line
+
+Parameters
+
+- `curr_line (int)`: The current line or iteration number for which memory graphic information is being generated.
+- `last_memory (double*)`: A pointer to the variable storing the memory usage from the last iteration.
+- `now_memory (double)`: The memory usage for the current iteration.
+- `memory_info (char[][1024])`: An array of character arrays to store memory-related graphic and data information.
 #
+
+## read_cpu_stat_return_sum
 ```
-read_cpu_stat_return_sum()
+int read_cpu_stat_return_sum()
 ```
 this function read the /proc/stat file and return the sum of fields
 #
+
+## read_cpu_stat_return_idle
 ```
-read_cpu_stat_return_idle()
+int read_cpu_stat_return_idle()
 ```
 this function read the/proc/stat/ file, return the idle time of the cpu
 #
+
+## generate_cpu
 ```
-generate_cpu(int cpu_now_idle, int cpu_now_sum, int cpu_last_idle, int cpu_last_sum)
+double generate_cpu(int cpu_now_idle, int cpu_now_sum, int cpu_last_idle, int cpu_last_sum)
 ```
 this function calculate the usage of the cpu using the cpu idle time and sum time before the delay and after the delay
+
+Parameters
+- `cpu_now_idle (int)`: The current CPU idle time.
+- `cpu_now_sum (int)`: The current sum of CPU-related statistics.
+- `cpu_last_idle (int)`: The previous CPU idle time.
+- `cpu_last_sum (int)`: The previous sum of CPU-related statistics.
 #
+
+## generate_cpu_graphic
 ```
-generate_cpu_graphic(int samples, double now_cpu, char cpu_info[][1024], int curr_line, bool sequential)
+void generate_cpu_graphic(int samples, double now_cpu, char cpu_info[][1024], int curr_line, bool sequential)
 ```
 this function generate the graphic of cpu information, store the graph in the cpu_info array in the index curr_line, based on the cpu current usage
 and print the overall graph based on sequential
+
+Parameters
+- `samples (int)`: The total number of samples.
+- `now_cpu (double)`: The current CPU usage percentage.
+- `cpu_info([][1024])`: A 2D array to store CPU information and graphics.
+- `curr_line (int)`: The index of the current line in the array.
+- `sequential (bool)`: A boolean flag indicating sequential printing.
+
+## generate_memory_info
 #
 ```
-generate_memory_info(int samples, char memory_info[][1024], int curr_line, bool sequential)
+void generate_memory_info(int samples, char memory_info[][1024], int curr_line, bool sequential)
 ```
 this function generate the memory_info before samples based on if user eneter --sequential or not
+
+Parameters
+- `samples (int)`: The total number of samples.
+- `memory_info (char[][1024]`: A 2D array storing memory information.
+- `curr_line (int)`: The index of the current line in the array.
+- `sequential (bool)`: A boolean flag indicating sequential printing.
 #
+
+## generate_user
 ```
-generate_user()
+void generate_user()
 ```
 this function generates all the users' information using utmp.h
 #
+
+## generate_cores
 ```
-generate_cores()
+void generate_cores()
 ```
 this function generates the number of cores using sysconf
 #
+
+## generate_system_infomation
 ```
-generate_system_information()
+void generate_system_information()
 ```
 this function generates infomation of the system
 #
+
+## check_valid_integer
 ```
-check_valid_integer(char *input)
+bool check_valid_integer(char *input)
 ```
 this function checks if the user input is valid integer
+
+Parameters
+- `input (char*)` : A pointer to the input string to be validated.
 #
+
+## main
 ```
 main(int argc, char **argv)
 ```
 this is the main function, display memory information, user information, cpu usage, machine information
 it has two parameters, argc is the number of arguments and argc is the array of arrguments. 
 It parse the arguement and print the desired output
+
+Parameters
+- `argc (int)` : Number of command-line arguments
+- `argv (char**)` : Array of command-line arguments. 
 
 # **How to Use**
 
