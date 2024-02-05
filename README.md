@@ -6,50 +6,78 @@ out more library and functions I can use. Therefore I started working on the pro
 
 # **Overview of functions**
 
-## generate_header(int samples, int tdelay, bool sequential, int curr_line)
+```
+generate_header(int samples, int tdelay, bool sequential, int curr_line)
+```
 this function generate the header of the printed information according to the sequential, including the number of samples and the time of tdelay
 if sequential, the print the number of iteration based on curr_line
 
-## generate_memory_usage()
+```
+generate_memory_usage()
+```
 this function generate the information of the memory usage using <sys/resourse.h>
 
-## calculate_memory_info(char memory_info[][1024], int curr_line)
+```
+calculate_memory_info(char memory_info[][1024], int curr_line)
+```
 this function calculate the memory information, store the information in the array memory_info at the index curr_line
 and return virtue used memory for future use
 
-## generate_memory_graphic(int curr_line, double *last_memory, double now_memory, char memory_info[][1024])
+```
+generate_memory_graphic(int curr_line, double *last_memory, double now_memory, char memory_info[][1024])
+```
 this function generate the memory graph, based on the memory before delay and after the delay
 and store the information in the memory_info based on the index curr_line
 
-## read_cpu_stat_return_sum()
+```
+read_cpu_stat_return_sum()
+```
 this function read the /proc/stat file and return the sum of fields
 
-## read_cpu_stat_return_idle()
+```
+read_cpu_stat_return_idle()
+```
 this function read the/proc/stat/ file, return the idle time of the cpu
 
-## generate_cpu(int cpu_now_idle, int cpu_now_sum, int cpu_last_idle, int cpu_last_sum)
+```
+generate_cpu(int cpu_now_idle, int cpu_now_sum, int cpu_last_idle, int cpu_last_sum)
+```
 this function calculate the usage of the cpu using the cpu idle time and sum time before the delay and after the delay
 
-## generate_cpu_graphic(int samples, double now_cpu, char cpu_info[][1024], int curr_line, bool sequential)
+```
+generate_cpu_graphic(int samples, double now_cpu, char cpu_info[][1024], int curr_line, bool sequential)
+```
 this function generate the graphic of cpu information, store the graph in the cpu_info array in the index curr_line, based on the cpu current usage
 and print the overall graph based on sequential
 
-## generate_memory_info(int samples, char memory_info[][1024], int curr_line, bool sequential)
+```
+generate_memory_info(int samples, char memory_info[][1024], int curr_line, bool sequential)
+```
 this function generate the memory_info before samples based on if user eneter --sequential or not
 
-## generate_user()
+```
+generate_user()
+```
 this function generates all the users' information using utmp.h
 
-## generate_cores()
+```
+generate_cores()
+```
 this function generates the number of cores using sysconf
 
-## generate_system_information()
+```
+generate_system_information()
+```
 this function generates infomation of the system
 
-## check_valid_integer(char *input)
+```
+check_valid_integer(char *input)
+```
 this function checks if the user input is valid integer
 
-## main(int argc, char **argv)
+```
+main(int argc, char **argv)
+```
 this is the main function, display memory information, user information, cpu usage, machine information
 it has two parameters, argc is the number of arguments and argc is the array of arrguments
 
