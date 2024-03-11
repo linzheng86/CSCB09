@@ -1,4 +1,4 @@
-# **System Monitoring Tool**
+# **Recreating the System-Wide FD Tables**
 
 # **How I Solve the Question**
 I first watched the video demo and compared the output in the demo and provided examples, then I read through
@@ -8,138 +8,153 @@ out more library and functions I can use. Therefore I started working on the pro
 
 # **Overview of functions**
 
-## generate_header
+## create 
 ```
-void generate_header(int samples, int tdelay, bool sequential, int curr_line)
+fdNode *newfdNode()
 ```
-this function generate the header of the printed information according to the sequential, including the number of samples and the time of tdelay
-if sequential, the print the number of iteration based on curr_line
+this function create a new node, and initalize the node to the default information
 
-Parameters
-- `samples (int)`: The total number of samples specified for the monitoring process.
-- `tdelay (int)`: The time delay (in seconds) between consecutive samples.
-- `sequential (bool)`: A boolean flag indicating whether samples should be displayed sequentially.
-- `curr_line (int)`: The current line or iteration number for which the header is generated.
 # 
 
-## generate_memory_usage
+## insert
 ```
-void generate_memory_usage()
+fdNode *insertfdNode(fdNode *head, int pid, int fd, char filename[1024], int inode){
 ```
-this function generate the information of the memory usage using <sys/resourse.h>
-
-#
-## calculate_memory_info
-```
-double calculate_memory_info(char memory_info[][1024], int curr_line)
-```
-this function calculate the memory information, store the information in the array memory_info at the index curr_line
-and return virtue used memory for future use
+this function create a new node depends on the given information, and insert the node at the end of the linked list
 
 Parameters
-- `memory_info (char[][1024])`: An array of character arrays to store memory-related information.
-- `curr_line (int)`: The current line or iteration number for which memory information is being calculated and stored.
+- `head` 
+- `pid`
+- `fd`
+- `filename`
+- `inode`
+
 #
 
-## generate_memory_graphic
+## delete
 ```
-void generate_memory_graphic(int curr_line, double *last_memory, double now_memory, char memory_info[][1024])
+fdNode *deleteList(fdNode *head)
 ```
-this function generate the memory graph, based on the memory before delay and after the delay
-and store the information in the memory_info based on the index curr_line
+this function delete all memory allocated
+Parameters
+- `head`
+
+#
+
+
+## check integer
+```
+bool check_valid_integer(char *input)
+```
+this function checks if the input is a integer
 
 Parameters
-
-- `curr_line (int)`: The current line or iteration number for which memory graphic information is being generated.
-- `last_memory (double*)`: A pointer to the variable storing the memory usage from the last iteration.
-- `now_memory (double)`: The memory usage for the current iteration.
-- `memory_info (char[][1024])`: An array of character arrays to store memory-related graphic and data information.
+- `input`
 #
 
-## read_cpu_stat_return_sum
+## check pid directory
 ```
-int read_cpu_stat_return_sum()
+bool check_pid_dir(const struct dirent *entry){
 ```
-this function read the /proc/stat file and return the sum of fields
-#
-
-## read_cpu_stat_return_idle
-```
-int read_cpu_stat_return_idle()
-```
-this function read the/proc/stat/ file, return the idle time of the cpu
-#
-
-## generate_cpu
-```
-double generate_cpu(int cpu_now_idle, int cpu_now_sum, int cpu_last_idle, int cpu_last_sum)
-```
-this function calculate the usage of the cpu using the cpu idle time and sum time before the delay and after the delay
+// this function checks if it is a pid directory
 
 Parameters
-- `cpu_now_idle (int)`: The current CPU idle time.
-- `cpu_now_sum (int)`: The current sum of CPU-related statistics.
-- `cpu_last_idle (int)`: The previous CPU idle time.
-- `cpu_last_sum (int)`: The previous sum of CPU-related statistics.
+- `entry`
 #
 
-## generate_cpu_graphic
+## check pid existenc
 ```
-void generate_cpu_graphic(int samples, double now_cpu, char cpu_info[][1024], int curr_line, bool sequential)
+bool check_exist_pid(int pid, uid_t current_uid){
 ```
-this function generate the graphic of cpu information, store the graph in the cpu_info array in the index curr_line, based on the cpu current usage
-and print the overall graph based on sequential
+this function checks if the giveen pid belongs to the current user
 
 Parameters
-- `samples (int)`: The total number of samples.
-- `now_cpu (double)`: The current CPU usage percentage.
-- `cpu_info([][1024])`: A 2D array to store CPU information and graphics.
-- `curr_line (int)`: The index of the current line in the array.
-- `sequential (bool)`: A boolean flag indicating sequential printing.
-
-## generate_memory_info
+- `pid`
+- `current_uid`
 #
+
+## get the overall information
 ```
-void generate_memory_info(int samples, char memory_info[][1024], int curr_line, bool sequential)
+fdNode* get_information()
 ```
-this function generate the memory_info before samples based on if user eneter --sequential or not
+this function create the linked list about the disired information
+#
+
+## print process table
+```
+void print_process_table(fdNode *head, int pid)
+```
+this function prints the process table according to whether the pid is given
 
 Parameters
-- `samples (int)`: The total number of samples.
-- `memory_info (char[][1024]`: A 2D array storing memory information.
-- `curr_line (int)`: The index of the current line in the array.
-- `sequential (bool)`: A boolean flag indicating sequential printing.
+- `head`
+- `pid`
+
 #
 
-## generate_user
+## print systemwide table
 ```
-void generate_user()
+void print_systemwide_table(fdNode *head, int pid)
 ```
-this function generates all the users' information using utmp.h
+// this function prints the systemwise table according to whether the pid is given 
+
+Parameters
+- `head`
+- `pid`
+
+## print vnode table
+#
+```
+void print_vnode_table(fdNode *head, int pid)
+```
+this function prints the vnode table according to whether the pid is given
+
+Parameters
+- `head`
+- `pid`
 #
 
-## generate_cores
+## print composite table
 ```
-void generate_cores()
+void print_composite_table(fdNode *head, int pid)
 ```
-this function generates the number of cores using sysconf
+this function print the compsite table according to whether the pid is given
+Parameters
+- `head`
+- `pid`
 #
 
-## generate_system_infomation
+## print threshold information
 ```
-void generate_system_information()
+void print_threshold_information(fdNode *head, int threshold)
 ```
-this function generates infomation of the system
+this function prints the threshold information depending on the number of threshold
+Parameters
+- `head`
+- `threshold`
+#
+
+## save composite table to txt
+```
+void savetxt(fdNode *head, int pid, char *saved_file){
+```
+this function save the composite table to a file called compositeTable.txt
+Parameters
+- `head`
+- `pid`
+- `saved_file`
 #
 
 ## check_valid_integer
 ```
-bool check_valid_integer(char *input)
+void savebinary(fdNode *head, int pid, char *saved_file)
 ```
-this function checks if the user input is valid integer
+this function save the composite table to a file called compositeTable.bin
 
 Parameters
-- `input (char*)` : A pointer to the input string to be validated.
+- `head`
+- `pid`
+- `saved_file`
 #
 
 ## main
