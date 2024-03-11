@@ -172,9 +172,9 @@ Parameters
 # **How to Use**
 
 Use the makefile to compile the program. 
-Open terminal or command prompt
-Open the directory where the file is saved
-Type `make`. 
+1. Open terminal or command prompt
+2. Open the directory where the file is saved
+3. Type `make`. 
 
 
 
