@@ -217,7 +217,7 @@ Default behaviour: if no argument is passed to the program, then the following a
 the program will display the composite table, i.e. same effect as having used the --composite flag
 
 
-# **Comparison**![WechatIMG8905](https://github.com/linzheng86/CSCB09/assets/144943291/66fc7ca9-71b5-43ba-9883-54a32876d686)
+# **Comparison**
 one specific PID: txt(time/space) binary(time/space)
 1. txt(0.015s/1637) binary(0.015s/1471)
 2. txt(0.015s/1637) binary(0.014s/1471)
@@ -229,14 +229,14 @@ average:txt(0.016s/1659.8) binary(0.0146s/1471)
 standard derivation:txt(0.0014/50.98) binary(0.00089/0)
 
 overall PID: txt(time/space) binary(time/space)
-1. txt(0.022s/29943) binary(0.029s/1471)
-2. txt(0.026s/32285) binary(0.014s/1471)
-3. txt(0.025s/32285) binary(0.016s/1471)
-4. txt(0.023s/29943) binary(0.014s/1471)
-5. txt(0.024s/29943) binary(0.014s/1471)
+1. txt(0.022s/29943) binary(0.029s/488864)
+2. txt(0.026s/32285) binary(0.027s/488864)
+3. txt(0.025s/32285) binary(0.026s/488864)
+4. txt(0.023s/29943) binary(0.028s/488864)
+5. txt(0.024s/29943) binary(0.027s421104/)
 
-average:txt(0.016s/1659.8) binary(0.0146s/1471)
-standard derivation:txt(0.0014/50.98) binary(0.00089/0)
+average:txt(0.024s/1659.8) binary(0.198s/485312)
+standard derivation:txt(0.00158/50.98) binary(0.00158/14418.16)
 
 
 From the above data, we can can notice that:
