@@ -175,81 +175,57 @@ Use the makefile to compile the program.
 1. Open terminal or command prompt
 2. Open the directory where the file is saved
 3. Type `make`. 
+4. run the progtam using `./printing_table`
+5. type `make clean` to remove object file
 
 
-
-### --system
-to indicate that only the system usage should be generated
+### --per-process
+indicates that only the process FD table will be displayed
 ```
-./mySystemStats --system
+./printing_table --system
 ```
 
 ### --user
 to indicate that only the users usage should be generated
 ```
-./mySystemStats --user
+./printing_table --user
 ```
 
 ### --graphic
  to include graphical output in the cases where a graphical outcome is possible as indicated below.
 ```
-./mySystemStats --graphic
+./printing_table --graphic
 ```
-or
-```
-./mySystemStats -g
-```
-#### Graphical representations
-for Memory utilization:
-````
-::::::@  total relative negative change
-######*  total relative positive change
-
-(OPTIONAL)
-|o    zero+
-|@    zero-
-````
-
-for CPU utilization:
-````
-||||   positive percentage increase
-````
 
 ### --sequential
 to indicate that the information will be output sequentially without needing to "refresh" the screen 
 (useful if you would like to redirect the output into a file)
 ```
-./mySystemStats --sequential
+./printing_table --sequential
 ```
 
 ### --samples=N
 if used the value N will indicate how many times the statistics are going to be collected and results will be average and reported based on the N number of repetitions.
 If not value is indicated the default value will be 10.
 ```
-./mySytemStats --samples=N
+./printing_table --samples=N
 ```
 
 ### --tdelay=T
 to indicate how frequently to sample in seconds.
 If not value is indicated the default value will be 1 sec.
 ```
-./mySystemStats --tdelays=T
+./printing_table --tdelays=T
 ```
 ### other way for setting samples and tdelay
 make sure the order is correct, the first number is samples and the second is tdelay
 ```
-./mySystemStats 8 2
+./printing_tables 8 2
 ```
 # **Design Decison**
 
-## sampling for CPUs match tdelay
+Default behaviour: if no argument is passed to the program, then the following approach is implemented
 ```
-collecting the cpu usage before the delay and after the delay
-comparing two values and calculate the cpu usage.
-```
-## sequential
-```
-printing the current memory and cpu usage one by one at the index of the iteration
-the other lines are blank
+the program will display the composite table, i.e. same effect as having used the --composite flag
 ```
 
