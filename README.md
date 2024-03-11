@@ -171,14 +171,12 @@ Parameters
 
 # **How to Use**
 
-## Compile the program using 
-```
-gcc mySystemStats.c -o mySystemStats
-```
-## Run the program
-```
-./mySystemStats
-```
+Use the makefile to compile the program. 
+Open terminal or command prompt
+Open the directory where the file is saved
+Type `make`. 
+
+
 
 ### --system
 to indicate that only the system usage should be generated
