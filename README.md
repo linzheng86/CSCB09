@@ -224,8 +224,8 @@ make sure the order is correct, the first number is samples and the second is td
 ```
 # **Design Decison**
 
-Default behaviour: if no argument is passed to the program, then the following approach is implemented
-```
+Default behaviour: if no argument is passed to the program, then the following approach is implemented:    
+
 the program will display the composite table, i.e. same effect as having used the --composite flag
-```
+
 
