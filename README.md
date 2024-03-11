@@ -210,12 +210,6 @@ For this it will list the PID and number of assigned FDs, e.g. PID (FD)
 ./printing_table --samples=N
 ```
 
-### --tdelay=T
-to indicate how frequently to sample in seconds.
-If not value is indicated the default value will be 1 sec.
-```
-./printing_table --tdelays=T
-```
 # **Design Decison**
 
 Default behaviour: if no argument is passed to the program, then the following approach is implemented:    
