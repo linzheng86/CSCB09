@@ -217,3 +217,11 @@ Default behaviour: if no argument is passed to the program, then the following a
 the program will display the composite table, i.e. same effect as having used the --composite flag
 
 
+# **Comparison**
+
+From the above data, we can can notice that:
+On average, binary files uses less spaces and less time. 
+The reason for this is ASCII file can only store 128 different characters, and each character is represented by t bits. 
+But binary encoding uses only 0s and 1s, it uses fewer bits to store the same amount of information compared with ASCII, so, it takes less space.
+For smaller amounts of dara, binary encoding is faster and uses less space, but for larger amounts of data, ASCII encoding is better. 
+
