@@ -244,4 +244,5 @@ On average, binary files uses less spaces and less time.
 The reason for this is ASCII file can only store 128 different characters, and each character is represented by 7 bits. 
 But binary encoding uses only 0s and 1s, it uses fewer bits to store the same amount of information compared with ASCII, it can represent a broader range of values with fewer bits. 
 Therefore, binary enconding is more efficient since it uses less time and space.
+However, for larger amount of data, binary encoding takes longer to save and uses more space. 
 
