@@ -182,31 +182,30 @@ Use the makefile to compile the program.
 ### --per-process
 indicates that only the process FD table will be displayed
 ```
-./printing_table --system
+./printing_table --per-process
 ```
 
-### --user
-to indicate that only the users usage should be generated
+### --systemWide
+indicates that only the system-wide FD table will be displayed
 ```
-./printing_table --user
-```
-
-### --graphic
- to include graphical output in the cases where a graphical outcome is possible as indicated below.
-```
-./printing_table --graphic
+./printing_table --systemWide
 ```
 
-### --sequential
-to indicate that the information will be output sequentially without needing to "refresh" the screen 
-(useful if you would like to redirect the output into a file)
+### --Vnodes
+indicates that the Vnodes FD table will be displayed
+```
+./printing_table --Vnodes
+```
+
+### --composite
+indicates that only the composed table will be displayed
 ```
 ./printing_table --sequential
 ```
 
-### --samples=N
-if used the value N will indicate how many times the statistics are going to be collected and results will be average and reported based on the N number of repetitions.
-If not value is indicated the default value will be 10.
+### --threshold=X
+where X denotes an integer, indicating that processes which have a number of FD assigned larger than X should be flagged in the output.
+For this it will list the PID and number of assigned FDs, e.g. PID (FD)
 ```
 ./printing_table --samples=N
 ```
@@ -216,11 +215,6 @@ to indicate how frequently to sample in seconds.
 If not value is indicated the default value will be 1 sec.
 ```
 ./printing_table --tdelays=T
-```
-### other way for setting samples and tdelay
-make sure the order is correct, the first number is samples and the second is tdelay
-```
-./printing_tables 8 2
 ```
 # **Design Decison**
 
