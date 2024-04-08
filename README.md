@@ -5,6 +5,11 @@ I first watched the video demo and compared the output in the provided examples,
 the provided resource such as files and C-libraries to figure out the usage of each. Also, I searched up online to find
 out more library and functions I can use. Therefore I started working on the program. 
 
+Also, I used pipe for communcation between child process and parent process. In the child process, I decide to call the function to get the desired information, and write to the pipe.
+Then I read the pipe in the parent process. 
+
+In addition, we ignore the signal ctrl_z and for ctrl_c we dicided to stop the process, so I write two handler to solve this problem. 
+
 
 # **Overview of functions**
 
@@ -145,6 +150,24 @@ Parameters
 - `input (char*)` : A pointer to the input string to be validated.
 #
 
+## ctrl_c_handler
+```
+handler the situation that if the user enter ctrl_c
+```
+
+Parameters
+- `sig (int)` 
+#
+
+## ctrl_v_handler
+```
+handler the situation that if the user enter ctrl_v
+```
+
+Parameters
+- `sig (int)` 
+#
+
 ## main
 ```
 main(int argc, char **argv)
@@ -156,7 +179,7 @@ It parse the arguement and print the desired output
 Parameters
 - `argc (int)` : Number of command-line arguments
 - `argv (char**)` : Array of command-line arguments. 
-
+#
 # **How to Use**
 
 Use the makefile to compile the program. 
