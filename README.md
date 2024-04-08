@@ -1,160 +1,148 @@
-# **Recreating the System-Wide FD Tables**
+# **System Monitoring Tool -- Concurrency & Signals**
 
 # **How I Solve the Question**
-I first watched the video demo and compared the output in the demo and provided examples, then I read through
+I first watched the video demo and compared the output in the provided examples, then I read through
 the provided resource such as files and C-libraries to figure out the usage of each. Also, I searched up online to find
 out more library and functions I can use. Therefore I started working on the program. 
 
 
 # **Overview of functions**
 
-## create 
+## generate_header
 ```
-fdNode *newfdNode()
+void generate_header(int samples, int tdelay, bool sequential, int curr_line)
 ```
-this function create a new node, and initalize the node to the default information
+this function generate the header of the printed information according to the sequential, including the number of samples and the time of tdelay
+if sequential, the print the number of iteration based on curr_line
 
+Parameters
+- `samples (int)`: The total number of samples specified for the monitoring process.
+- `tdelay (int)`: The time delay (in seconds) between consecutive samples.
+- `sequential (bool)`: A boolean flag indicating whether samples should be displayed sequentially.
+- `curr_line (int)`: The current line or iteration number for which the header is generated.
 # 
 
-## insert
+## generate_memory_usage
 ```
-fdNode *insertfdNode(fdNode *head, int pid, int fd, char filename[1024], int inode){
+void generate_memory_usage()
 ```
-this function create a new node depends on the given information, and insert the node at the end of the linked list
-
-Parameters
-- `head` 
-- `pid`
-- `fd`
-- `filename`
-- `inode`
+this function generate the information of the memory usage using <sys/resourse.h>
 
 #
-
-## delete
+## calculate_memory_info
 ```
-fdNode *deleteList(fdNode *head)
+double calculate_memory_info(char memory_info[][1024], int curr_line)
 ```
-this function delete all memory allocated
-Parameters
-- `head`
-
-#
-
-
-## check integer
-```
-bool check_valid_integer(char *input)
-```
-this function checks if the input is a integer
+this function calculate the memory information, store the information in the array memory_info at the index curr_line
+and return virtue used memory for future use
 
 Parameters
-- `input`
+- `memory_info (char[][1024])`: An array of character arrays to store memory-related information.
+- `curr_line (int)`: The current line or iteration number for which memory information is being calculated and stored.
 #
 
-## check pid directory
+## generate_memory_graphic
 ```
-bool check_pid_dir(const struct dirent *entry){
+void generate_memory_graphic(int curr_line, double *last_memory, double now_memory, char memory_info[][1024])
 ```
-// this function checks if it is a pid directory
+this function generate the memory graph, based on the memory before delay and after the delay
+and store the information in the memory_info based on the index curr_line
 
 Parameters
-- `entry`
+
+- `curr_line (int)`: The current line or iteration number for which memory graphic information is being generated.
+- `last_memory (double*)`: A pointer to the variable storing the memory usage from the last iteration.
+- `now_memory (double)`: The memory usage for the current iteration.
+- `memory_info (char[][1024])`: An array of character arrays to store memory-related graphic and data information.
 #
 
-## check pid existenc
+## read_cpu_stat_return_sum
 ```
-bool check_exist_pid(int pid, uid_t current_uid){
+long read_cpu_stat_return_sum()
 ```
-this function checks if the giveen pid belongs to the current user
+this function read the /proc/stat file and return the sum of fields
+#
+
+## read_cpu_stat_return_idle
+```
+long read_cpu_stat_return_idle()
+```
+this function read the/proc/stat/ file, return the idle time of the cpu
+#
+
+## generate_cpu
+```
+double generate_cpu(long cpu_now_idle, long cpu_now_sum, long cpu_last_idle, long cpu_last_sum)
+```
+this function calculate the usage of the cpu using the cpu idle time and sum time before the delay and after the delay
 
 Parameters
-- `pid`
-- `current_uid`
+- `cpu_now_idle (long)`: The current CPU idle time.
+- `cpu_now_sum (long)`: The current sum of CPU-related statistics.
+- `cpu_last_idle (long)`: The previous CPU idle time.
+- `cpu_last_sum (long)`: The previous sum of CPU-related statistics.
 #
 
-## get the overall information
+## generate_cpu_graphic
 ```
-fdNode* get_information()
+void generate_cpu_graphic(int samples, double now_cpu, char cpu_info[][1024], int curr_line, bool sequential)
 ```
-this function create the linked list about the disired information
-#
-
-## print process table
-```
-void print_process_table(fdNode *head, int pid)
-```
-this function prints the process table according to whether the pid is given
+this function generate the graphic of cpu information, store the graph in the cpu_info array in the index curr_line, based on the cpu current usage
+and print the overall graph based on sequential
 
 Parameters
-- `head`
-- `pid`
+- `samples (int)`: The total number of samples.
+- `now_cpu (double)`: The current CPU usage percentage.
+- `cpu_info([][1024])`: A 2D array to store CPU information and graphics.
+- `curr_line (int)`: The index of the current line in the array.
+- `sequential (bool)`: A boolean flag indicating sequential printing.
 
-#
-
-## print systemwide table
-```
-void print_systemwide_table(fdNode *head, int pid)
-```
-// this function prints the systemwise table according to whether the pid is given 
-
-Parameters
-- `head`
-- `pid`
-
-## print vnode table
+## generate_memory_info
 #
 ```
-void print_vnode_table(fdNode *head, int pid)
+void generate_memory_info(int samples, char memory_info[][1024], int curr_line, bool sequential)
 ```
-this function prints the vnode table according to whether the pid is given
+this function generate the memory_info before samples based on if user eneter --sequential or not
 
 Parameters
-- `head`
-- `pid`
+- `samples (int)`: The total number of samples.
+- `memory_info (char[][1024]`: A 2D array storing memory information.
+- `curr_line (int)`: The index of the current line in the array.
+- `sequential (bool)`: A boolean flag indicating sequential printing.
 #
 
-## print composite table
+## generate_user
 ```
-void print_composite_table(fdNode *head, int pid)
+void generate_user(int write_fd)
 ```
-this function print the compsite table according to whether the pid is given
+this function generates all the users' information using utmp.h and write to write_fd
+
 Parameters
-- `head`
-- `pid`
+- `write_fd (int)`: The location write the user infomation
 #
 
-## print threshold information
+## generate_cores
 ```
-void print_threshold_information(fdNode *head, int threshold)
+void generate_cores()
 ```
-this function prints the threshold information depending on the number of threshold
-Parameters
-- `head`
-- `threshold`
+this function generates the number of cores using sysconf
 #
 
-## save composite table to txt
+## generate_system_infomation
 ```
-void savetxt(fdNode *head, int pid, char *saved_file){
+void generate_system_information()
 ```
-this function save the composite table to a file called compositeTable.txt
-Parameters
-- `head`
-- `pid`
-- `saved_file`
+this function generates infomation of the system
 #
 
 ## check_valid_integer
 ```
-void savebinary(fdNode *head, int pid, char *saved_file)
+bool check_valid_integer(char *input)
 ```
-this function save the composite table to a file called compositeTable.bin
+this function checks if the user input is valid integer
 
 Parameters
-- `head`
-- `pid`
-- `saved_file`
+- `input (char*)` : A pointer to the input string to be validated.
 #
 
 ## main
@@ -175,74 +163,81 @@ Use the makefile to compile the program.
 1. Open terminal or command prompt
 2. Open the directory where the file is saved
 3. Type `make`. 
-4. run the progtam using `./printing_table`
+4. run the progtam using `./a3`
 5. type `make clean` to remove object file
-
-
-### --per-process
-indicates that only the process FD table will be displayed
+   
+### --system
+to indicate that only the system usage should be generated
 ```
-./printing_table --per-process
-```
-
-### --systemWide
-indicates that only the system-wide FD table will be displayed
-```
-./printing_table --systemWide
+./a3 --system
 ```
 
-### --Vnodes
-indicates that the Vnodes FD table will be displayed
+### --user
+to indicate that only the users usage should be generated
 ```
-./printing_table --Vnodes
-```
-
-### --composite
-indicates that only the composed table will be displayed
-```
-./printing_table --sequential
+./a3 --user
 ```
 
-### --threshold=X
-where X denotes an integer, indicating that processes which have a number of FD assigned larger than X should be flagged in the output.
-For this it will list the PID and number of assigned FDs, e.g. PID (FD)
+### --graphic
+ to include graphical output in the cases where a graphical outcome is possible as indicated below.
 ```
-./printing_table --samples=N
+./a3 --graphic
+```
+or
+```
+./a3 -g
+```
+#### Graphical representations
+for Memory utilization:
+````
+::::::@  total relative negative change
+######*  total relative positive change
+
+(OPTIONAL)
+|o    zero+
+|@    zero-
+````
+
+for CPU utilization:
+````
+||||   positive percentage increase
+````
+
+### --sequential
+to indicate that the information will be output sequentially without needing to "refresh" the screen 
+(useful if you would like to redirect the output into a file)
+```
+./a3 --sequential
 ```
 
+### --samples=N
+if used the value N will indicate how many times the statistics are going to be collected and results will be average and reported based on the N number of repetitions.
+If not value is indicated the default value will be 10.
+```
+./a3 --samples=N
+```
+
+### --tdelay=T
+to indicate how frequently to sample in seconds.
+If not value is indicated the default value will be 1 sec.
+```
+./a3 --tdelays=T
+```
+### other way for setting samples and tdelay
+make sure the order is correct, the first number is samples and the second is tdelay
+```
+./a3 8 2
+```
 # **Design Decison**
 
-Default behaviour: if no argument is passed to the program, then the following approach is implemented:    
-
-the program will display the composite table, i.e. same effect as having used the --composite flag
-
-
-# **Comparison**
-one specific PID: txt(time/space) binary(time/space)
-1. txt(0.015s/1637) binary(0.015s/1471)
-2. txt(0.015s/1637) binary(0.014s/1471)
-3. txt(0.017s/1637) binary(0.016s/1471)
-4. txt(0.015s/1751) binary(0.014s/1471)
-5. txt(0.018s/1751) binary(0.014s/1471)
-
-average:txt(0.016s/1659.8) binary(0.0146s/1471)
-standard derivation:txt(0.0014/50.98) binary(0.00089/0)
-
-overall PID: txt(time/space) binary(time/space)
-1. txt(0.022s/29943) binary(0.029s/488864)
-2. txt(0.026s/32285) binary(0.027s/488864)
-3. txt(0.025s/32285) binary(0.026s/488864)
-4. txt(0.023s/29943) binary(0.028s/488864)
-5. txt(0.024s/29943) binary(0.027s421104/)
-
-average:txt(0.024s/1659.8) binary(0.198s/485312)
-standard derivation:txt(0.00158/50.98) binary(0.00158/14418.16)
-
-
-From the above data, we can can notice that:
-On average, binary files uses less spaces and less time. 
-The reason for this is ASCII file can only store 128 different characters, and each character is represented by 7 bits. 
-But binary encoding uses only 0s and 1s, it uses fewer bits to store the same amount of information compared with ASCII, it can represent a broader range of values with fewer bits. 
-Therefore, binary enconding is more efficient since it uses less time and space.
-However, for larger amount of data, binary encoding takes longer to save and uses more space. 
+## sampling for CPUs match tdelay
+```
+collecting the cpu usage before the delay and after the delay
+comparing two values and calculate the cpu usage.
+```
+## sequential
+```
+printing the current memory and cpu usage one by one at the index of the iteration
+the other lines are blank
+```
 
