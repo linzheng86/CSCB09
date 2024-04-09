@@ -150,10 +150,42 @@ Parameters
 - `input (char*)` : A pointer to the input string to be validated.
 #
 
+## get_memory_child_pid
+```
+int get_memory_child_pid(pid_t pid){
+```
+store the pid value of the memory child process
+
+Parameters
+- `pid (pid_t)` : the pid of the memory child process hat need to be killed
+#
+
+## get_user_child_pid
+```
+int get_user_child_pid(pid_t pid){
+```
+store the pid value of the user child process
+
+Parameters
+- `pid (pid_t)` : the pid of the user child process hat need to be killed
+#
+
+## get_cpu_child_pid
+```
+int get_cpu_child_pid(pid_t pid){
+```
+store the pid value of the cpu child process
+
+Parameters
+- `pid (pid_t)` : the pid of the cpu child process hat need to be killed
+#
+
+
 ## ctrl_c_handler
 ```
-handler the situation that if the user enter ctrl_c
+void ctrl_c_handler(int sig){
 ```
+handler the situation that if the user enter ctrl_c
 
 Parameters
 - `sig (int)` 
