@@ -180,6 +180,15 @@ Parameters
 - `pid (pid_t)` : the pid of the cpu child process hat need to be killed
 #
 
+## ctrl_c_handler_for_child
+```
+void ctrl_c_handler_for_child(int sig){
+```
+store the pid value of the cpu child process
+
+Parameters
+- `pid (pid_t)` : the pid of the cpu child process hat need to be killed
+#
 
 ## ctrl_c_handler
 ```
