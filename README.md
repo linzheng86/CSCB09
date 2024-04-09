@@ -184,7 +184,7 @@ Parameters
 ```
 void ctrl_c_handler_for_child(int sig){
 ```
-store the pid value of the cpu child process
+handler the situation that if the user enter ctrl_c in child process
 
 Parameters
 - `pid (pid_t)` : the pid of the cpu child process hat need to be killed
@@ -194,7 +194,7 @@ Parameters
 ```
 void ctrl_c_handler(int sig){
 ```
-handler the situation that if the user enter ctrl_c
+handler the situation that if the user enter ctrl_c in parent process
 
 Parameters
 - `sig (int)` 
